@@ -6,7 +6,10 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ParseApplication {
     private String xmlData;
@@ -60,6 +63,7 @@ public class ParseApplication {
                             } else if (tagName.equalsIgnoreCase("artist")){
                                 currentRecord.setArtist(textValue);
                             } else if (tagName.equalsIgnoreCase("releaseDate")){
+                                textValue = getDate(textValue);
                                 currentRecord.setReleaseDate(textValue);
                             }
 
@@ -80,4 +84,17 @@ public class ParseApplication {
 
         return status;
     }
+
+    private String getDate(String date){
+        String dateTime = null;
+        try {
+            dateTime = date.substring(0,10);
+              Log.d("ParseApplication","Date is " + dateTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateTime;
+    }
+
+
 }
